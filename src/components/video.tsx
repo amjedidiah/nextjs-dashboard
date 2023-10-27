@@ -9,6 +9,7 @@ import useEditing from "@/hooks/use-editing";
 import { MapStateToProps, connect } from "react-redux";
 import { AppDispatch, RootState } from "@/types";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const schema = yup
   .object({
@@ -33,11 +34,16 @@ function Video({ onSubmit, ...defaultValues }: Props) {
     handleSubmit,
     register,
     formState: { errors },
+    reset,
   } = useForm<Inputs>({
     mode: "onChange",
     defaultValues,
     resolver: yupResolver(schema),
   });
+
+  useEffect(() => {
+    if (videoEmbedLink) reset({ video: videoEmbedLink });
+  }, [reset, videoEmbedLink]);
 
   return (
     <section className="lg:col-span-3 flex flex-col gap-5 bg-white rounded-md border border-slate-100">

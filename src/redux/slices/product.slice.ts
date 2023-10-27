@@ -23,10 +23,7 @@ const productSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(productFetch.fulfilled, productSlice.caseReducers.productSet)
-      .addCase(
-        productUpdate.fulfilled,
-        productSlice.caseReducers.productSet
-      )
+      .addCase(productUpdate.fulfilled, productSlice.caseReducers.productSet)
       .addCase(hydrate, (state, action) => ({
         ...state,
         ...action.payload.product,

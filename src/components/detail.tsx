@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import ShouldRender from "@/components/should-render";
 import cx from "classnames";
 import useDetail from "@/hooks/use-detail";
@@ -30,12 +30,17 @@ export default function Detail({ title, Icon, editor }: Props) {
     handleSubmit,
     register,
     formState: { errors },
+    reset,
   } = useForm<Inputs>({
     mode: "onChange",
     defaultValues: { detail: initDetail },
   });
   const onSubmit: SubmitHandler<Inputs> = (data) =>
     handleUpdateDetail(data.detail, title);
+
+  useEffect(() => {
+    if (initDetail) reset({ detail: initDetail });
+  }, [initDetail, reset]);
 
   return (
     <div className="inline-flex gap-[10px]">

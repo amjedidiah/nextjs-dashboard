@@ -13,7 +13,7 @@ export default function Layout({ children }: PropsWithChildren) {
   useEffect(() => {
     if (!productId) dispatch(productFetch());
     if (!config.id) dispatch(configFetch());
-  }, []);
+  }, [config.id, dispatch, productId]);
 
   return (
     <Fragment>

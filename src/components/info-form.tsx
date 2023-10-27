@@ -23,6 +23,7 @@ function InfoForm({ onSubmit, ...defaultValues }: Props) {
     register,
     control,
     formState: { errors, isLoading, isSubmitting, isValid },
+    reset,
   } = useForm<Inputs>({
     mode: "onChange",
     defaultValues,
@@ -33,6 +34,10 @@ function InfoForm({ onSubmit, ...defaultValues }: Props) {
 
   const cancelBtnRef = useMainColor<HTMLButtonElement>(["color"]);
   const submitBtnRef = useMainColor<HTMLButtonElement>(["backgroundColor"]);
+
+  useEffect(() => {
+    if (defaultValues.title) reset(defaultValues);
+  }, [defaultValues, reset]);
 
   return (
     <form className="p-5 grid gap-[0.625rem]" onSubmit={handleSubmit(onSubmit)}>

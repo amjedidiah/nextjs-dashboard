@@ -9,7 +9,7 @@ export default function useProductImage<T extends HTMLElement>() {
   useEffect(() => {
     if (picture && ref.current)
       ref.current.style.backgroundImage = `url(${picture})`;
-  }, [ref.current, picture]);
+  }, [picture]);
 
   return ref;
 }

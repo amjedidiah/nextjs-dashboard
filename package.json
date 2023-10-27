@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:dev": "next lint --fix"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
@@ -40,6 +41,7 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
     "postcss": "^8",
+    "prettier": "^3.0.3",
     "tailwindcss": "^3",
     "typescript": "^5"
   }
