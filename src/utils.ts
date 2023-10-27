@@ -1,6 +1,8 @@
 import { ProductData } from "@/types";
 import { AppDispatch, RootState } from "@/types";
 import { createAction } from "@reduxjs/toolkit";
+import { ContentState, EditorState, convertFromHTML } from "draft-js";
+import { stateToHTML } from "draft-js-export-html";
 import { NextApiRequest } from "next";
 import { HYDRATE } from "next-redux-wrapper";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
@@ -22,11 +24,13 @@ export function formatProductData({
   video,
   user,
   company,
+  picture,
 }: ProductData) {
   return {
     id,
     title,
     type: type.name,
+    picture,
     description,
     technologies,
     businessModels,
@@ -36,10 +40,12 @@ export function formatProductData({
     user: {
       image: user.profilePicture,
       name: `${user.firstName} ${user.lastName}`,
-      companyName: company.name,
-      companyLogo: company.logo,
-      companyAddress: `${company.address.street} ${company.address.house}, ${company.address.zipCode} ${company.address.city.name}, ${company.address.country.name}`,
-      companyCoords: [company.address.latitude, company.address.longitude],
+    },
+    company: {
+      name: company.name,
+      logo: company.logo,
+      address: `${company.address.street} ${company.address.house},<br /> ${company.address.zipCode} ${company.address.city.name}, ${company.address.country.name}`,
+      coords: [+company.address.latitude, +company.address.longitude],
     },
   };
 }
@@ -48,3 +54,15 @@ export function validateRequestMethod(req: NextApiRequest, method: string) {
   if (req.method !== method)
     throw { message: "Method is not allowed", response: { status: 405 } };
 }
+
+export const getHTMLFromState = (editorState: EditorState) =>
+  stateToHTML(editorState.getCurrentContent());
+
+export const getStateFromHTML = (html: string) => {
+  const blocksFromHTML = convertFromHTML(html);
+  const state = ContentState.createFromBlockArray(
+    blocksFromHTML.contentBlocks,
+    blocksFromHTML.entityMap
+  );
+  return EditorState.createWithContent(state);
+};

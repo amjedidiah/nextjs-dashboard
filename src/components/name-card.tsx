@@ -1,12 +1,15 @@
-import { selectProduct } from "@/redux/slices/product.slice";
+import {
+  selectProductCompany,
+  selectProductUser,
+} from "@/redux/slices/product.slice";
 import { useAppSelector } from "@/utils";
 import cx from "classnames";
 import UserImage from "@/components/user-image";
 
 type Props = {
-  size: number;
-  nameClassName: string;
-  textColor: string;
+  size?: number;
+  nameClassName?: string;
+  textColor?: string;
 };
 
 export default function NameCard({
@@ -14,7 +17,8 @@ export default function NameCard({
   nameClassName,
   textColor,
 }: Props) {
-  const { user } = useAppSelector(selectProduct);
+  const { name: userName } = useAppSelector(selectProductUser);
+  const { name: companyName } = useAppSelector(selectProductCompany);
 
   return (
     <div className="flex items-center gap-4 ">
@@ -23,20 +27,20 @@ export default function NameCard({
         <p
           className={cx(
             {
-              "loading h-7 w-40": !user?.name,
+              "loading h-7 w-40": !userName,
             },
             "font-semibold",
             nameClassName
           )}
         >
-          {user?.name}
+          {userName}
         </p>
         <p
           className={cx({
-            "loading h-5 w-40": !user?.companyName,
+            "loading h-5 w-40": !companyName,
           })}
         >
-          {user?.companyName}
+          {companyName}
         </p>
       </div>
     </div>

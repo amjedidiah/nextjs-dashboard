@@ -19,10 +19,10 @@ export default function Layout({ children }: PropsWithChildren) {
     <Fragment>
       <Navbar />
       <main className="min-h-full pt-[126px] md:pt-[77px]">
-        <div className="container relative">
+        <div className="container relative lg:flex lg:gap-x-16">
           <Aside />
+          {children}
         </div>
-        {children}
       </main>
     </Fragment>
   );

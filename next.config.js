@@ -9,6 +9,12 @@ const nextConfig = {
         port: "",
         pathname: "/users/**",
       },
+      {
+        protocol: "https",
+        hostname: "img.innoloft.com",
+        port: "",
+        pathname: "/logos/**",
+      },
     ],
   },
 };

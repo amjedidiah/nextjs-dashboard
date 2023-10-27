@@ -8,10 +8,16 @@ import {
   InnoSearchIcon,
 } from "@/icons";
 import UserImage from "@/components/user-image";
+import useMainColor from "@/hooks/use-main-color";
 
 export default function Navbar() {
+  // Apply config mainColor to header
+  const headerRef = useMainColor<HTMLDivElement>(["backgroundColor"]);
   return (
-    <nav className="fixed bg-blue-100 w-full left-0 top-0 py-4 z-10">
+    <nav
+      className="fixed bg-blue-100 w-full left-0 top-0 py-4 z-10"
+      ref={headerRef}
+    >
       <div className="container grid grid-cols-[auto,1fr] md:grid-cols-[auto,1fr,auto] items-center justify-between gap-4 md:gap-10 lg:gap-0">
         <Link href="/">
           <Image src={logo} alt="logo" />

@@ -1,4 +1,4 @@
-import { selectProduct } from "@/redux/slices/product.slice";
+import { selectProductUser } from "@/redux/slices/product.slice";
 import { useAppSelector } from "@/utils";
 import Image from "next/image";
 import cx from "classnames";
@@ -9,8 +9,7 @@ type Props = {
 };
 
 export default function UserImage({ size = 25, className }: Props) {
-  const { user } = useAppSelector(selectProduct);
-  const userImage = user?.image;
+  const { image: userImage } = useAppSelector(selectProductUser);
 
   return (
     <span
@@ -25,6 +24,7 @@ export default function UserImage({ size = 25, className }: Props) {
         alt="user"
         width={size}
         height={size}
+        priority
       />
     </span>
   );

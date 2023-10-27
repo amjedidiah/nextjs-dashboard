@@ -3,20 +3,21 @@
 @tailwind utilities;
 
 @layer base {
-    * {
-        transition: all 0.15s ease-in-out;
-    }
+  * {
+    transition: all 0.15s ease-in-out;
+  }
 
-    html,
-    body,
-    #__next {
-        @apply h-full;
-    }
+  html,
+  body,
+  #__next {
+    @apply h-full;
+  }
 
-    body {
-        font-size: 14px;
-        @apply bg-slate-200;
-    }
+  body {
+    font-size: 14px;
+    @apply bg-slate-200;
+    @apply text-blue-200;
+  }
 
   @media screen and (min-width: 768px) {
     body {
@@ -29,5 +30,10 @@
   .loading {
     @apply animate-pulse;
     @apply bg-slate-300
+  }
+
+  .company-logo {
+    width: 200px;
+    height: 36px;
   }
 }

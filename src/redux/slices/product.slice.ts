@@ -1,4 +1,9 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSelector,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { hydrate } from "@/utils";
 import { formatProductData } from "@/utils";
 import { AppDispatch, ProductData, ProductState, RootState } from "@/types";
@@ -42,22 +47,34 @@ export const productFetch = createAsyncThunk<
     })
 );
 
-const productUpdate = createAsyncThunk<
+export const productUpdate = createAsyncThunk<
   ProductState,
-  ProductState,
+  ProductState | undefined,
   {
     dispatch: AppDispatch;
     state: RootState;
   }
->("product/update", (updateData) =>
-  axios
+>("product/update", (stateProduct, thunkApi) => {
+  const updateData = stateProduct ?? thunkApi.getState().product;
+
+  return axios
     .put<ProductData>("/api/product/put", updateData)
     .then(({ data }) => ({ ...formatProductData(data), ...updateData }))
     .catch((error) => {
       throw error;
-    })
-);
+    });
+});
 
 export const selectProduct = ({ product }: RootState) => product;
+
+export const selectProductUser = createSelector(
+  [selectProduct],
+  (product) => product.user || {}
+);
+
+export const selectProductCompany = createSelector(
+  [selectProduct],
+  (product) => product.company || {}
+);
 
 export default productSlice;

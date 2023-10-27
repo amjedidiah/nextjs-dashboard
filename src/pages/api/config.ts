@@ -10,7 +10,9 @@ export default async function handler(
   try {
     validateRequestMethod(req, "GET");
 
-    const { data, status } = await api.get<ConfigState>(`/configuration/${1}`);
+    const { data, status } = await api.get<ConfigState>(
+      `/configuration/${process.env.APP_ID || 1}`
+    );
     if (!data?.id) throw { message: "Error fetching config" };
 
     res.status(status).json(data);
