@@ -1,4 +1,4 @@
-import { productUpdatePart } from "@/redux/slices/product.slice";
+import { productUpdate } from "@/redux/slices/product.slice";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Editor from "@/components/editor";
@@ -96,7 +96,7 @@ const mapStateToProps: MapStateToProps<Inputs, {}, RootState> = ({
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   onSubmit: async (data: Inputs) => {
-    await dispatch(productUpdatePart(data));
+    await dispatch(productUpdate(data));
     toast.success(
       "Product title and description have been updated successfully"
     );

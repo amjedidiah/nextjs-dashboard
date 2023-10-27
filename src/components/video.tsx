@@ -1,7 +1,7 @@
 import ShouldRender from "@/components/should-render";
 import cx from "classnames";
 import { useAppSelector, getEmbedLink } from "@/utils";
-import { productUpdatePart, selectProduct } from "@/redux/slices/product.slice";
+import { productUpdate, selectProduct } from "@/redux/slices/product.slice";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -95,7 +95,7 @@ const mapStateToProps: MapStateToProps<Inputs, {}, RootState> = ({
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   onSubmit: async (data: Inputs) => {
-    await dispatch(productUpdatePart(data));
+    await dispatch(productUpdate(data));
     toast.success("Product video has been updated successfully");
   },
 });

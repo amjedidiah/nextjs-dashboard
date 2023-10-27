@@ -2,6 +2,7 @@ import OfferedBy from "@/components/offered-by";
 import Info from "@/components/info";
 import TopBar from "@/components/top-bar";
 import Video from "@/components/video";
+import Details from "@/components/details";
 
 export default function Main() {
   return (
@@ -13,6 +14,7 @@ export default function Main() {
       </section>
 
       <Video />
+      <Details />
     </div>
   );
 }

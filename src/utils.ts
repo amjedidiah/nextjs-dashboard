@@ -1,4 +1,4 @@
-import { ProductData } from "@/types";
+import { ProductData, ProductState } from "@/types";
 import { AppDispatch, RootState } from "@/types";
 import { createAction } from "@reduxjs/toolkit";
 import { ContentState, EditorState, convertFromHTML } from "draft-js";
@@ -96,3 +96,12 @@ export const getEmbedLink = (video: string) => {
     return;
   }
 };
+
+type DetailKey = keyof ProductState;
+export function getKeyFromTitle(field: string): DetailKey {
+  return ({
+    technology: "technologies",
+    trl: "trl",
+    costs: "costs",
+  }[field.toLowerCase()] || "businessModels") as DetailKey;
+}
