@@ -1,4 +1,5 @@
 import api from "@/api";
+import Main from "@/components/main";
 import { TRL } from "@/types";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 
@@ -15,6 +16,5 @@ export const getStaticProps: GetStaticProps<{ trls: TRL[] }> = async () => {
 export default function ProductEdit({
   trls,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log({ trls });
-  return <>Product Edit</>;
+  return <Main />;
 }

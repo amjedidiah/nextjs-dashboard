@@ -66,3 +66,33 @@ export const getStateFromHTML = (html: string) => {
   );
   return EditorState.createWithContent(state);
 };
+
+const getYouTubeLink = (url: URL) => {
+  const params = new URLSearchParams(url.search);
+  const vLink = params.get("v");
+  if (!vLink) return;
+
+  return `https://www.youtube.com/embed/${vLink}`;
+};
+
+const getVimeoLink = (url: URL) => {
+  const vId = url.pathname.split("/").at(-1);
+  if (!vId) return;
+
+  return `https://player.vimeo.com/video/${vId}`;
+};
+
+export const getEmbedLink = (video: string) => {
+  if (!video) return;
+
+  try {
+    const url = new URL(video);
+
+    if (url.href.includes("you")) return getYouTubeLink(url);
+    else if (url.href.includes("vimeo")) return getVimeoLink(url);
+
+    return;
+  } catch {
+    return;
+  }
+};

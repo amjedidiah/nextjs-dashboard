@@ -24,6 +24,10 @@ const productSlice = createSlice({
     builder
       .addCase(productFetch.fulfilled, productSlice.caseReducers.productSet)
       .addCase(productUpdate.fulfilled, productSlice.caseReducers.productSet)
+      .addCase(
+        productUpdatePart.fulfilled,
+        productSlice.caseReducers.productSet
+      )
       .addCase(hydrate, (state, action) => ({
         ...state,
         ...action.payload.product,
@@ -47,23 +51,36 @@ export const productFetch = createAsyncThunk<
     })
 );
 
-export const productUpdate = createAsyncThunk<
+const productRequestUpdate = (updateData: ProductState) =>
+  axios
+    .put<ProductData>("/api/product/put", updateData)
+    .then(({ data }) => ({ ...formatProductData(data), ...updateData }))
+    .catch((error) => {
+      console.log("error");
+      throw error;
+    });
+
+export const productUpdatePart = createAsyncThunk<
   ProductState,
-  ProductState | undefined,
+  any,
   {
     dispatch: AppDispatch;
     state: RootState;
   }
->("product/update", (stateProduct, thunkApi) => {
-  const updateData = stateProduct ?? thunkApi.getState().product;
+>("product/update_part", (part, thunkApi) =>
+  productRequestUpdate({ ...thunkApi.getState().product, ...part })
+);
 
-  return axios
-    .put<ProductData>("/api/product/put", updateData)
-    .then(({ data }) => ({ ...formatProductData(data), ...updateData }))
-    .catch((error) => {
-      throw error;
-    });
-});
+export const productUpdate = createAsyncThunk<
+  ProductState,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: RootState;
+  }
+>("product/update", (_, thunkApi) =>
+  productRequestUpdate(thunkApi.getState().product)
+);
 
 export const selectProduct = ({ product }: RootState) => product;
 

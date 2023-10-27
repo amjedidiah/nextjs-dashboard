@@ -1,21 +1,23 @@
-import { productUpdate, selectProduct } from "@/redux/slices/product.slice";
-import { useAppDispatch, useAppSelector } from "@/utils";
+import { productUpdatePart } from "@/redux/slices/product.slice";
 import { useEffect, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import Editor from "@/components/editor";
 import useMainColor from "@/hooks/use-main-color";
 import Loading from "./loading";
 import { toast } from "react-toastify";
+import { MapStateToProps, connect } from "react-redux";
+import { AppDispatch, RootState } from "@/types";
 
 type Inputs = {
   title: string;
   description: string;
 };
 
-export default function InfoForm() {
-  const dispatch = useAppDispatch();
-  const product = useAppSelector(selectProduct);
-  const { title, description } = product;
+type Props = Inputs & {
+  onSubmit: (data: Inputs) => void;
+};
+
+function InfoForm({ onSubmit, ...defaultValues }: Props) {
   const {
     handleSubmit,
     register,
@@ -23,12 +25,8 @@ export default function InfoForm() {
     formState: { errors, isLoading, isSubmitting, isValid },
   } = useForm<Inputs>({
     mode: "onChange",
-    defaultValues: { title, description },
+    defaultValues,
   });
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    await dispatch(productUpdate({ ...product, ...data }));
-    toast.success("Product updated successfully");
-  };
 
   const [canEdit, setCanEdit] = useState(false);
   useEffect(() => setCanEdit(true), []);
@@ -88,3 +86,21 @@ export default function InfoForm() {
     </form>
   );
 }
+
+const mapStateToProps: MapStateToProps<Inputs, {}, RootState> = ({
+  product,
+}) => ({
+  title: product.title,
+  description: product.description,
+});
+
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  onSubmit: async (data: Inputs) => {
+    await dispatch(productUpdatePart(data));
+    toast.success(
+      "Product title and description have been updated successfully"
+    );
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(InfoForm);
