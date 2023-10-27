@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    * {
+        transition: all 0.15s ease-in-out;
+    }
+
+    html,
+    body,
+    #__next {
+        @apply h-full;
+    }
+
+    body {
+        font-size: 14px;
+        @apply bg-slate-200;
+    }
+
+  @media screen and (min-width: 768px) {
+    body {
+      font-size: 16px;
+    }
+  }
+
+    main {
+        @apply min-h-full;
+    }
+}
+
+@layer components {
+  .loading {
+    @apply animate-pulse;
+    @apply bg-slate-300
+  }
+}
