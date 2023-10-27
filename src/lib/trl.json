@@ -1,0 +1,47 @@
+[
+    {
+        "id": "1",
+        "name": "TRL 1 – Basic principles observed (product idea available)",
+        "description": null
+    },
+    {
+        "id": "2",
+        "name": "TRL 2 – Technology concept formulated (business plan available)",
+        "description": null
+    },
+    {
+        "id": "3",
+        "name": "TRL 3 – Experimental proof of concept",
+        "description": null
+    },
+    {
+        "id": "4",
+        "name": "TRL 4 – Technology validated in lab",
+        "description": null
+    },
+    {
+        "id": "5",
+        "name": "TRL 5 – Technology validated in relevant environment (prototype available)",
+        "description": null
+    },
+    {
+        "id": "6",
+        "name": "TRL 6 – Technology demonstrated in relevant environment",
+        "description": null
+    },
+    {
+        "id": "7",
+        "name": "TRL 7 – System prototype demonstration in operational environment (pilot customer available)",
+        "description": null
+    },
+    {
+        "id": "8",
+        "name": "TRL 8 – System complete and qualified",
+        "description": null
+    },
+    {
+        "id": "9",
+        "name": "TRL 9 – Actual system proven in operational environment (established product available)",
+        "description": null
+    }
+]
