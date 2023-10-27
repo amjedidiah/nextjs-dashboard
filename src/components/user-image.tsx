@@ -4,23 +4,28 @@ import Image from "next/image";
 import cx from "classnames";
 
 type Props = {
-  size: number;
+  size?: number;
+  className?: string;
 };
 
-export default function UserImage({ size = 25 }: Props) {
+export default function UserImage({ size = 25, className }: Props) {
   const { user } = useAppSelector(selectProduct);
   const userImage = user?.image;
-
-  if (!userImage) return null;
 
   return (
     <span
       className={cx(
         { loading: !userImage },
-        "rounded-full overflow-hidden border border-white min-h-[25px] min-w-[25px]"
+        "rounded-full overflow-hidden",
+        className
       )}
     >
-      <Image src={userImage} alt="user" width={size} height={size} />
+      <Image
+        src={userImage ?? "/images/profile.png"}
+        alt="user"
+        width={size}
+        height={size}
+      />
     </span>
   );
 }

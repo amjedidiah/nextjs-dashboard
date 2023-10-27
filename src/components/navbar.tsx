@@ -7,13 +7,11 @@ import {
   InnoNotificationIcon,
   InnoSearchIcon,
 } from "@/icons";
-import dynamic from "next/dynamic";
-
-const UserImage = dynamic(() => import("./user-image"), { ssr: false });
+import UserImage from "@/components/user-image";
 
 export default function Navbar() {
   return (
-    <nav className="fixed bg-blue-100 w-full left-0 top-0 py-4">
+    <nav className="fixed bg-blue-100 w-full left-0 top-0 py-4 z-10">
       <div className="container grid grid-cols-[auto,1fr] md:grid-cols-[auto,1fr,auto] items-center justify-between gap-4 md:gap-10 lg:gap-0">
         <Link href="/">
           <Image src={logo} alt="logo" />
@@ -51,7 +49,7 @@ export default function Navbar() {
             </span>
           </li>
           <li className="flex gap-1 md:gap-2 items-center text-white">
-            <UserImage size={25} />
+            <UserImage size={25} className="border border-white" />
             <span>
               <InnoCaretDownIcon />
             </span>

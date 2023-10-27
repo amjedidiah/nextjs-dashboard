@@ -1,8 +1,9 @@
 import { configFetch, selectConfig } from "@/redux/slices/config.slice";
 import { productFetch, selectProduct } from "@/redux/slices/product.slice";
 import { useAppDispatch, useAppSelector } from "@/utils";
-import { PropsWithChildren, useEffect } from "react";
+import { Fragment, PropsWithChildren, useEffect } from "react";
 import Navbar from "@/components/navbar";
+import Aside from "@/components/aside";
 
 export default function Layout({ children }: PropsWithChildren) {
   const dispatch = useAppDispatch();
@@ -15,10 +16,14 @@ export default function Layout({ children }: PropsWithChildren) {
   }, []);
 
   return (
-    <main>
+    <Fragment>
       <Navbar />
-      <aside className=""></aside>
-      {children}
-    </main>
+      <main className="min-h-full pt-[126px] md:pt-[77px]">
+        <div className="container relative">
+          <Aside />
+        </div>
+        {children}
+      </main>
+    </Fragment>
   );
 }
